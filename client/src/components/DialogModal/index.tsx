@@ -1,9 +1,10 @@
 import React from 'react';
 import {Modal, Button, InputGroup, FormControl} from "react-bootstrap";
-import {useState} from "react";
+import {useState, useContext} from "react";
 import axios from 'axios';
 import styled from "styled-components";
-import {useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom';
+import {UserContext} from "../../context";
 
 
 interface ModalProps {
@@ -27,6 +28,8 @@ const DialogModal: React.FC<ModalProps> = ({text, variant, isSignupFlow}) => {
 	const handleOpen = () => setShow(true);
 
 	const navigate = useNavigate();
+
+	const [state, setState] = useContext(UserContext);
 
 	const styleObj = {
 		display: 'inline-block',
@@ -53,7 +56,20 @@ const DialogModal: React.FC<ModalProps> = ({text, variant, isSignupFlow}) => {
 			return setErrorMsg(data.errors[0].msg)
 		}
 
+		// will import the user from context
+		setState({
+			data: {
+				id: data.data.user.id,
+				email: data.data.user.email,
+			},
+			loading: false,
+			error: null
+		})
+
 		localStorage.setItem('token', data.data.token);
+
+		// add token on headers
+		axios.defaults.headers.common['authorization'] = `Bearer ${data.data.token}`;
 		navigate('/articles')
 	}
 
