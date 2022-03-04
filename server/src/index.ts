@@ -2,6 +2,9 @@ import express from 'express';
 import authRouters from "./routes/auth";
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
+import cors from 'cors';
+
+
 dotenv.config();
 
 mongoose.connect(
@@ -14,6 +17,8 @@ mongoose.connect(
 		const PORT = 8080;
 		// need the  format
 		app.use(express.json());
+		// solve the problems of blocked by CORS policy
+		app.use(cors());
 		app.use('/auth', authRouters);
 
 		app.listen(PORT, () => {

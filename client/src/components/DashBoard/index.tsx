@@ -37,10 +37,10 @@ const DashBoard = () => {
 					<Heading>Absorb</Heading>
 					<SubHeading>Know more about the world</SubHeading>
 					<DialogModal
-						text={'SignUp'} variant={'info'}
+						text={'SignUp'} variant={'info'} isSignupFlow={true}
 					/>
 					<DialogModal
-						text={'SignIn'} variant={'warning'}
+						text={'SignIn'} variant={'warning'} isSignupFlow={false}
 					/>
 				</HeaderContainer>
 			</Container>
