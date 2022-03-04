@@ -123,8 +123,19 @@ router.post('/signin', async (req: express.Request, res: express.Response) => {
 });
 
 // after signin
-router.get('/me', checkAuth, async (req: express.Request, res: express.Response) => {
-	res.send('me ')
-})
+router.get("/me", checkAuth, async (req, res) => {
+	const user = await User.findOne({ email: req.user });
+
+	return res.json({
+		errors: [],
+		data: {
+			user: {
+				id: user._id,
+				email: user.email,
+				// stripeCustomerId: user.stripeCustomerId,
+			},
+		},
+	});
+});
 
 export default router;
