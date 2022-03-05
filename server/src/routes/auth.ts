@@ -4,6 +4,8 @@ import User from "../models/user";
 import bcrypt from 'bcryptjs'
 import JWT from 'jsonwebtoken'
 import {checkAuth} from "../middlewares/checkAuth";
+import {stripe} from "../utils/stripe-tool";
+
 
 const router = express.Router();
 
@@ -46,9 +48,19 @@ router.post('/signup',
 	//	hash password
 	const hashPassword = await bcrypt.hash(password, 10);
 
+	// connect the newUser to stripe
+	const customer = await stripe.customers.create({
+		email
+		},
+		{
+			apiKey: process.env.STRIPE_SECRET_KEY
+		}
+	);
+
 	const newUser = await User.create({
 		email,
-		password: hashPassword
+		password: hashPassword,
+		stripeCustomerId: customer.id
 	});
 
 	// after signup, the server will create the token and return to the client
@@ -66,7 +78,8 @@ router.post('/signup',
 			token,
 			user: {
 				id: newUser._id,
-				email: newUser.email
+				email: newUser.email,
+				stripeCustomerId: customer.id
 			}
 		}
 	});
@@ -116,7 +129,8 @@ router.post('/signin', async (req: express.Request, res: express.Response) => {
 			token,
 			user: {
 				id: user._id,
-				email: user.email
+				email: user.email,
+				stripeCustomerId: user.stripeCustomerId
 			}
 		}
 	})

@@ -13,6 +13,10 @@ const userSchema = new Schema({
 		type: String,
 		required: true,
 		min: 6
+	},
+	stripeCustomerId: {
+		type: String,
+		required: true
 	}
 });
 

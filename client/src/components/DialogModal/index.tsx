@@ -61,6 +61,7 @@ const DialogModal: React.FC<ModalProps> = ({text, variant, isSignupFlow}) => {
 			data: {
 				id: data.data.user.id,
 				email: data.data.user.email,
+				stripeCustomerId: data.data.user.stripeCustomerId
 			},
 			loading: false,
 			error: null
