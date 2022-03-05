@@ -29,14 +29,14 @@ const Nav = () => {
 
 	return (
 		<Navbar>
-			<NavItem>
-				<Link to={'/'} className={'nav-link'}>HOME</Link>
+			<NavItem >
+				<Link to={'/'} className={'nav-link'} style={{color: "rosybrown"}}>HOME</Link>
 			</NavItem>
 			{
 				state.data && (
 					<LeftContainer>
 						<NavItem>
-							<NavLink onClick={handleSignOut}>LEAVE</NavLink>
+							<NavLink style={{color: "rosybrown"}} onClick={handleSignOut}>LEAVE</NavLink>
 						</NavItem>
 					</LeftContainer>
 				)
