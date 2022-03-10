@@ -1,27 +1,25 @@
 import React from 'react';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import Nav from "./components/Nav";
+import logo from './logo.svg';
 import './App.css';
-import LandingPage from "./pages/LandingPage";
-import Articles from "./pages/Articles/Articles";
-import {ProtectedRoute} from "./routes/ProtectedRoute";
-import ArticlePlans from "./pages/Articles/ArticlePlans";
-
 
 function App() {
   return (
-    <BrowserRouter>
-      <Nav />
-      <Routes>
-        <Route path={'/'} element={<LandingPage />} />
-        <Route path={'/articles'} element={<ProtectedRoute />}>
-          <Route path={'/articles'} element={<Articles />} />
-        </Route>
-        <Route path={'/articles-plans'} element={<ProtectedRoute />}>
-          <Route path={'/articles-plans'} element={<ArticlePlans />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.tsx</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
   );
 }
 
