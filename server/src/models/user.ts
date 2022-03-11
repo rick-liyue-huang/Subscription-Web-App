@@ -1,11 +1,10 @@
-import mongoose from "mongoose";
 
+import mongoose from "mongoose";
 const {Schema} = mongoose;
 
 const userSchema = new Schema({
 	email: {
 		type: String,
-		trim: true,
 		required: true,
 		unique: true
 	},
@@ -13,13 +12,7 @@ const userSchema = new Schema({
 		type: String,
 		required: true,
 		min: 6
-	},
-	stripeCustomerId: {
-		type: String,
-		required: true
 	}
 });
 
 export default mongoose.model('User', userSchema);
-
-

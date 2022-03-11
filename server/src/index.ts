@@ -1,38 +1,34 @@
+
 import express from 'express';
-import authRouters from "./routes/auth";
-import stripeRouters from './routes/stripe'
-import mongoose from "mongoose";
 import dotenv from 'dotenv';
-import cors from 'cors';
+import mongoose from "mongoose";
+import authRouter from './routes/auth';
 
-
+// let server recognise .env variables
 dotenv.config();
 
-mongoose.connect(
-	process.env.MONGO_URI as string
-)
+mongoose.connect(process.env.MONGODB_URL as string)
 	.then(() => {
-		console.log('connected to mongodb');
+		console.log('Connected to MongoDB');
+
 
 		const app = express();
-		const PORT = 8080;
-		// need the  format
-		app.use(express.json());
-		// solve the problems of blocked by CORS policy
-		app.use(cors());
-		app.use('/auth', authRouters);
-		app.use('/stripe', stripeRouters);
+		const PORT = process.env.PORT;
 
+		// let req.body can recognize the json format
+		app.use(express.json());
+
+		// auth router
+		app.use('/auth', authRouter);
 		app.listen(PORT, () => {
-			console.log(`Server is listening on port ${PORT}`)
+			console.log(`this server is running on port of ${PORT}`);
 		});
+
 	})
 	.catch(err => {
-		console.log(err)
+		console.log(err);
 		throw new Error(err)
 	})
-
-
 
 
 
