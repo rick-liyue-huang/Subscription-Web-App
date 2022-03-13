@@ -3,6 +3,7 @@ import {validationResult} from "express-validator";
 import UserModel from "../models/User";
 import bcrypt from "bcryptjs";
 import JWT from "jsonwebtoken";
+import {v4 as uuid} from 'uuid';
 
 
 export const signupController = async (req: Request, res: Response
@@ -111,4 +112,84 @@ export const signinController = async (req: Request, res: Response) => {
 		}
 	});
 
+}
+
+
+// here I simulate the user controllers here, and set the user info in json file
+
+const data = {
+	users: require('../models/users.json'),
+	setUsers: function (data: Record<string, any>) {this.users = data}
+}
+
+const getAllUsers = async (req: Request, res: Response) => {
+	try {
+		await res.status(200).json(data.users)
+	} catch (err) {
+		res.status(400).json(err);
+	}
+}
+
+const createNewUsers = async (req: Request, res: Response) => {
+	const newUser = {
+		id: uuid(),
+		firstname: req.body.firstname,
+		lastname: req.body.lastname
+	};
+
+	if (!newUser.firstname || !newUser.lastname) {
+		return res.status(400).json({message: 'need firstname or lastname'})
+	}
+
+	try {
+		await data.setUsers([...data.users, newUser]);
+		await res.status(200).json(data.users);
+	} catch (err) {
+		res.status(500).json(err);
+	}
+
+}
+
+const updateUser = async (req: Request, res: Response) => {
+	const user = await data.users.find((u: Record<string, any>) => u.id === parseInt(req.body.id));
+
+	if (!user) {
+		return res.status(400).json({message: `${req.body.id} not found`})
+	}
+
+	if (req.body.firstname) user.firstname = req.body.firstname;
+	if (req.body.lastname) user.lastname = req.body.lastname;
+
+	const filteredUsers = data.users.filter((user: Record<string, any>) => user.id !== parseInt(req.body.id));
+	const unsortedUsers = [...filteredUsers, user];
+
+	try {
+		await data.setUsers(unsortedUsers.sort((a, b) => a.id > b.id ? 1: a.id < b.id ? -1 : 0));
+		await res.status(200).json(data.users);
+	} catch (err) {
+		await res.status(400).json(err);
+	}
+}
+
+const deleteUser = async (req: Request, res: Response) => {
+	const user = await data.users.find((u: Record<string, any>) => u.id === parseInt(req.body.id));
+
+	if (!user) {
+		return res.status(400).json({message: `user id ${req.body.id} not found`});
+	}
+
+	const filteredUsers = await data.users.filter((u: Record<string, any>) => u.id !== parseInt(req.body.id));
+	await data.setUsers([...filteredUsers]);
+	await res.status(200).json(data.users);
+
+}
+
+const getSingleUser = async (req: Request, res: Response) => {
+	const user = await data.users.find((u: Record<string, any>) => u.id === parseInt(req.body.id));
+
+	if (!user) {
+		return res.status(400).json({message: `user id ${req.body.id} not found`})
+	}
+
+	await res.status(200).json(user);
 }
