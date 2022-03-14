@@ -2,7 +2,7 @@
 import {Request} from "express";
 import cors from "cors";
 
-export const whitelist = ['https://www.yoursite.com', 'http://127.0.0.1:3500', 'http://localhost:3500'];
+export const whitelist = ['https://www.yoursite.com', 'http://127.0.0.1:3000', 'http://localhost:3000'];
 
 export const corsOptionsDelegate = function (req: Request, callback: any) {
 	let corsOptions: cors.CorsOptions;

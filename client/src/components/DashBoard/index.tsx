@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import {Container} from 'react-bootstrap';
 import AuthModal from "../AuthModal";
 
-
 const DashboardComponent = styled.header`
 	padding: 15rem 0;
 	height: 80vh;
@@ -42,10 +41,12 @@ const Dashboard = () => {
 					<AuthModal
 						text={'SIGNUP'}
 						color={'warning'}
+						isSignupFlow={true}
 					/>
 					<AuthModal
 						text={'SIGNIN'}
 						color={'success'}
+						isSignupFlow={false}
 					/>
 				</HeaderContainer>
 			</Container>

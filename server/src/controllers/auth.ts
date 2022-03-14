@@ -29,19 +29,18 @@ export const signupController = async (req: Request, res: Response
 			}
 		});
 
-		return res.status(404).json({errors, data: null});
+		return res.json({errors, data: null});
 	}
 
 	// 3. check if email is not already used
 	const user = await UserModel.findOne({email});
 	if (user) {
 		// return the array format as express-validator
-		return res.status(400).json({
-			errors: [
-				{
-					msg: `the user ${user.email} existed already`
-				}
-			],
+		// TODO: catch response after add res.status().json()
+		return res.json({
+			errors: [{
+				msg: 'wrong'
+			}],
 			data: null
 		})
 	}
@@ -62,7 +61,7 @@ export const signupController = async (req: Request, res: Response
 		expiresIn: '3d'
 	});
 
-	res.status(200).json({
+	res.json({
 		errors: [],
 		data: {
 			token,
@@ -70,7 +69,6 @@ export const signupController = async (req: Request, res: Response
 				id: newUser._id,
 				email: newUser.email
 			}
-
 		}
 	});
 }
@@ -81,7 +79,7 @@ export const signinController = async (req: Request, res: Response) => {
 	// 1. get the user from database
 	const user = await UserModel.findOne({email});
 	if (!user) {
-		return res.status(400).json({
+		return res.json({
 			errors: [
 				{msg: `${email} isn't existed.`}
 			],
@@ -93,7 +91,7 @@ export const signinController = async (req: Request, res: Response) => {
 	const isMatched = await bcrypt.compare(password, user.password);
 
 	if (!isMatched) {
-		return res.status(400).json({
+		return res.json({
 			errors: [
 				{msg: `password is wrong.`}
 			],
@@ -107,7 +105,7 @@ export const signinController = async (req: Request, res: Response) => {
 		expiresIn: '3d'
 	});
 
-	res.status(200).json({
+	res.json({
 		errors: [],
 		data: {
 			token,
@@ -298,3 +296,5 @@ export const loginHandler = async (req: Request, res: Response) => {
 	}
 }
 */
+
+
