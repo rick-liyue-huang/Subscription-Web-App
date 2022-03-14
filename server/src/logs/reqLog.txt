@@ -174,3 +174,6 @@ Mon, 14 Mar 2022 10:07:24 GMT	b492dbb0-0276-43de-986c-11cb370029dd	GET	http://lo
 Mon, 14 Mar 2022 10:07:58 GMT	100ddb00-cf51-43a3-98fb-ef724dc2643e	POST	http://localhost:3000	/auth/signin
 Mon, 14 Mar 2022 10:10:11 GMT	1975ee29-3e05-41b7-b48a-746e8f42a1a1	GET	http://localhost:3000	/auth/me
 Mon, 14 Mar 2022 10:10:18 GMT	ce4595ab-e757-407d-b8d9-86dec1da7eca	GET	http://localhost:3000	/auth/me
+Mon, 14 Mar 2022 10:23:53 GMT	48d04dc8-e459-4bbd-93b3-971d57a7073f	POST	http://localhost:3000	/auth/signin
+Mon, 14 Mar 2022 10:24:20 GMT	83757841-ef83-4323-83e1-b79cedb58886	GET	http://localhost:3000	/auth/me
+Mon, 14 Mar 2022 11:17:17 GMT	55307fe5-e796-461f-92ee-598bfe6ac2f7	GET	http://localhost:3000	/auth/me

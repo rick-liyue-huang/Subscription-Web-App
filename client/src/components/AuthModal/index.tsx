@@ -1,8 +1,10 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useState, useContext} from 'react';
 import {Button, Modal, InputGroup, FormControl} from "react-bootstrap";
 import axios from "axios";
 import styled from "styled-components";
 import {useNavigate} from 'react-router-dom';
+import {UserContext} from "../../context";
+
 
 interface AuthModalProps {
 	text: string;
@@ -24,7 +26,9 @@ const AuthModal: React.FC<AuthModalProps> = ({text, color, isSignupFlow}) =>  {
 	const handleClose = () => setShow(false);
 	const handleOpen = () => setShow(true);
 
-	const navigate = useNavigate()
+	const navigate = useNavigate();
+
+	const [state, setState] = useContext(UserContext);
 
 	const handleClick = async () => {
 		let data;
@@ -51,8 +55,19 @@ const AuthModal: React.FC<AuthModalProps> = ({text, color, isSignupFlow}) =>  {
 			setPassword('')
 			handleClose();
 
+			setState({
+				data: {
+					id: data.data.user.id,
+					email: data.data.user.email
+				},
+				loading: false,
+				error: null
+			})
+
 		//	here everything is fine, and will store the token on localstorage
 			localStorage.setItem('token', data.data.token)
+
+			axios.defaults.headers.common['Authorization'] = `Bearer ${data.data.token}`;
 
 			// after sign in to route to new page
 			navigate('/articles')

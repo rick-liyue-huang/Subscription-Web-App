@@ -2,6 +2,7 @@
 import JWT, {JwtPayload} from 'jsonwebtoken';
 import {NextFunction, Request, Response} from "express";
 
+// @ts-ignore
 interface ReqProps extends Request {
 	user?: string;
 }
