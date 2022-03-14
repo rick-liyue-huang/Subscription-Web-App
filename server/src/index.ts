@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import mongoose from "mongoose";
 import authRouter from './routes/auth';
 import path from 'path';
+import cookieParser from "cookie-parser";
 import cors from 'cors';
 import errorHandler from "./middlewares/errorHandler";
 import {logger} from "./middlewares/logEvents";
@@ -22,6 +23,9 @@ mongoose.connect(process.env.MONGODB_URL as string)
 
 		// let req.body can recognize the json format
 		app.use(express.json());
+
+		// middleware for cookie
+		app.use(cookieParser());
 
 		// solve the problem of cross-origin resource sharing
 		app.use(cors(corsOptionsDelegate));

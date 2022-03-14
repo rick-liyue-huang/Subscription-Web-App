@@ -15,3 +15,14 @@ when signin
 1. get the user from database
 2. compare the hashed password with stored password
 3. send back a token
+
+JWT:
+
+accessToken = shorttime
+refreshToken = longtime
+
+accessToken: client store in memory donnot store in localstorage or cookie
+
+refreshToken: sent as httpOnly cookie, not accessible via javascript, must have expiry at some point.
+
+accessToken: issues at authorizaton, client uses api access until expires. verified with middleware, new token issued at refresh request.

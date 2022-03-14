@@ -12,7 +12,6 @@ import {UserI} from '../types/users';
 
 let users: UserI[] = [];
 
-/*
 
 export const signupController = async (req: Request, res: Response
 ) => {
@@ -59,7 +58,7 @@ export const signupController = async (req: Request, res: Response
 	// 5. add the token on the created user, and send back to client
 	const token = JWT.sign({
 		email: newUser.email
-	}, process.env.JWT_SECRET as string, {
+	}, process.env.ACCESS_JWT_SECRET as string, {
 		expiresIn: '3d'
 	});
 
@@ -104,7 +103,7 @@ export const signinController = async (req: Request, res: Response) => {
 
 	const token = JWT.sign({
 		email: user.email
-	}, process.env.JWT_SECRET as string, {
+	}, process.env.ACCESS_JWT_SECRET as string, {
 		expiresIn: '3d'
 	});
 
@@ -120,18 +119,18 @@ export const signinController = async (req: Request, res: Response) => {
 	});
 
 }
-*/
 
 
 // here I simulate the user controllers here, and set the user info in json file
 
+/*
 
 const data = {
 	users: users,
 	setUsers: function (data: Array<UserI>) {
 		this.users = data}
 }
-/*
+/!*
 
 
 const getAllUsers = async (req: Request, res: Response) => {
@@ -210,7 +209,7 @@ const getSingleUser = async (req: Request, res: Response) => {
 
 	await res.status(200).json(user);
 }
-*/
+*!/
 
 
 export const registerHandler = async (req: Request, res: Response) => {
@@ -266,8 +265,36 @@ export const loginHandler = async (req: Request, res: Response) => {
 	const isMatch = await bcrypt.compare(pwd, foundUser.pwd);
 
 	if (isMatch) {
-		res.status(201).json({message: `${user} is logined`})
+
+		// here the server will create the jwt
+		const accessToken = JWT.sign(
+			{'user': foundUser.user},
+			process.env.ACCESS_JWT_SECRET as string,
+			{ expiresIn: '30s' }
+		);
+
+		const refreshToken = JWT.sign(
+			{'user': foundUser.user},
+			process.env.REFRESH_JWT_SECRET as string,
+			{ expiresIn: '1d' }
+		);
+
+		// saving refreshToken on the currentUser
+		const otherUsers = data.users.filter(u => u.user !== foundUser.user);
+
+		const currentUser = {...foundUser, refreshToken};
+
+		data.setUsers([...otherUsers, currentUser]);
+		await fsPromise.writeFile(
+			path.join(__dirname, '..', 'models', 'users.json'),
+			JSON.stringify(data.users)
+		);
+
+		res.cookie('jwt', refreshToken, {httpOnly: true, maxAge: 24 * 60 * 60 * 1000});
+
+		res.status(201).json({accessToken})
 	} else {
 		res.sendStatus(401);
 	}
 }
+*/
