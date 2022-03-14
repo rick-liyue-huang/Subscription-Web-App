@@ -1,10 +1,12 @@
 
 import express, {Request, Response} from 'express';
 import {body} from "express-validator";
-import {signinController, signupController} from "../controllers/auth";
+import {loginHandler, registerHandler} from "../controllers/auth";
 
 
 const router = express.Router();
+
+/*
 
 router.post(
 	'/signup',
@@ -14,6 +16,11 @@ router.post(
 );
 
 router.post('/signin', signinController);
+*/
+
+
+router.post('/register', registerHandler);
+router.post('/login', loginHandler);
 
 
 export default router;
