@@ -177,3 +177,15 @@ Mon, 14 Mar 2022 10:10:18 GMT	ce4595ab-e757-407d-b8d9-86dec1da7eca	GET	http://lo
 Mon, 14 Mar 2022 10:23:53 GMT	48d04dc8-e459-4bbd-93b3-971d57a7073f	POST	http://localhost:3000	/auth/signin
 Mon, 14 Mar 2022 10:24:20 GMT	83757841-ef83-4323-83e1-b79cedb58886	GET	http://localhost:3000	/auth/me
 Mon, 14 Mar 2022 11:17:17 GMT	55307fe5-e796-461f-92ee-598bfe6ac2f7	GET	http://localhost:3000	/auth/me
+Mon, 14 Mar 2022 11:25:56 GMT	33534547-6890-4820-844d-df25ad25c586	POST	http://localhost:3000	/auth/signup
+Mon, 14 Mar 2022 11:26:24 GMT	2df5c54f-1ce3-44d4-97e3-15091ca21090	GET	http://localhost:3000	/auth/me
+Mon, 14 Mar 2022 11:26:43 GMT	41128521-31db-4325-8b7c-35d99329f762	GET	undefined	/auth/me
+Mon, 14 Mar 2022 11:26:43 GMT	93ae8b76-dbd4-4887-b145-10bcd5fb47cb	GET	undefined	/favicon.ico
+Mon, 14 Mar 2022 22:18:03 GMT	0afaad44-b043-4750-9e7c-c5428a10a537	GET	undefined	/subscript/prices
+Mon, 14 Mar 2022 22:18:44 GMT	87c1039f-8fcb-416a-8e6d-f5258569e753	GET	undefined	/auth/me
+Mon, 14 Mar 2022 22:18:53 GMT	b61a2df5-3eb6-4a78-89cd-537e48142c83	POST	undefined	/auth/signin
+Mon, 14 Mar 2022 22:19:09 GMT	d4692aae-b5a4-425f-8117-65007dd3a0a6	GET	undefined	/auth/me
+Mon, 14 Mar 2022 22:19:31 GMT	4846b919-2353-4d05-86bd-a9ef12cd4f83	GET	undefined	/subscript/prices
+Mon, 14 Mar 2022 22:19:39 GMT	16cd99b7-8f8e-4912-8a1c-fb191c73de09	GET	undefined	/subscript/prices
+Mon, 14 Mar 2022 22:20:57 GMT	722dd449-9bd6-4a3a-bd2e-f94fef2c9062	GET	undefined	/subscript/prices
+Mon, 14 Mar 2022 22:32:38 GMT	58be65cd-ca93-4f5f-9598-e1cd6f6a73ed	GET	undefined	/subscript/prices

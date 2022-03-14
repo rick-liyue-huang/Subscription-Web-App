@@ -3,6 +3,7 @@ import express, {Request, Response, NextFunction} from 'express';
 import dotenv from 'dotenv';
 import mongoose from "mongoose";
 import authRouter from './routes/auth';
+import subsriptRouter from './routes/subscript';
 import path from 'path';
 import cookieParser from "cookie-parser";
 import cors from 'cors';
@@ -51,6 +52,8 @@ mongoose.connect(process.env.MONGODB_URL as string)
 
 		// auth router
 		app.use('/auth', authRouter);
+		// subscription router
+		app.use('/subscript', subsriptRouter);
 
 		// through this middleware, we can send the error to front page
 		app.use(errorHandler);
