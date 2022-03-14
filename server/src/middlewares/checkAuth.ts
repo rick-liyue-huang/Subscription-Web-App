@@ -1,6 +1,6 @@
 
 import {NextFunction, Request, Response} from "express";
-import JWT, {JwtPayload} from "jsonwebtoken";
+import JWT from "jsonwebtoken";
 
 export const checkAuth = async (req: Request, res: Response, next: NextFunction) => {
 
