@@ -39,7 +39,7 @@ export const signupController = async (req: Request, res: Response
 		// TODO: catch response after add res.status().json()
 		return res.json({
 			errors: [{
-				msg: 'wrong'
+				msg: `${user.email} duplicated`
 			}],
 			data: null
 		})

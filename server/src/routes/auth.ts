@@ -2,6 +2,8 @@
 import express, {Request, Response} from 'express';
 import {body} from "express-validator";
 import {/*loginHandler, registerHandler, */signinController, signupController} from "../controllers/auth";
+import {checkAuth} from "../middlewares/checkAuth";
+import UserModel from '../models/User';
 
 
 const router = express.Router();
@@ -15,6 +17,26 @@ router.post(
 );
 
 router.post('/signin', signinController);
+
+// after login or signup
+router.get('/me', checkAuth, async (req: Request, res: Response) => {
+
+	// res.send(req.user);
+
+	const user = await UserModel.findOne({
+		email: req.user
+	});
+
+	return res.json({
+		errors: [],
+		data: {
+			user: {
+				id: user._id,
+				email: user.email
+			}
+		}
+	})
+})
 
 /*
 router.post('/register', registerHandler);
