@@ -32,7 +32,8 @@ router.get('/me', checkAuth, async (req: Request, res: Response) => {
 		data: {
 			user: {
 				id: user._id,
-				email: user.email
+				email: user.email,
+				stripeCustomerId: user.stripeCustomerId
 			}
 		}
 	})

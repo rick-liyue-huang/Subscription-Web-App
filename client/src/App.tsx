@@ -5,6 +5,7 @@ import Nav from "./components/Nav";
 import LandingPage from "./pages/Landing";
 import Articles from "./pages/Articles";
 import { ProtectedRoute } from './routes/ProtectedRoute';
+import SubscriptPlan from "./pages/SubscriptPlan";
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
         <Route path={'/'} element={<LandingPage />} />
         <Route path={'/articles'} element={<ProtectedRoute />}>
           <Route path={'/articles'} element={<Articles />} />
+        </Route>
+        <Route path={'/subscriptplan'} element={<ProtectedRoute />}>
+          <Route path={'/subscriptplan'} element={<SubscriptPlan />} />
         </Route>
       </Routes>
     </BrowserRouter>

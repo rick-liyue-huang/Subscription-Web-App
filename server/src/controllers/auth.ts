@@ -6,9 +6,10 @@ import JWT from "jsonwebtoken";
 import {v4 as uuid} from 'uuid';
 import fs from 'fs';
 import path from 'path';
+import {stripe} from "../utils/stripe";
 const fsPromise = fs.promises;
-
 import {UserI} from '../types/users';
+
 
 let users: UserI[] = [];
 
@@ -48,10 +49,18 @@ export const signupController = async (req: Request, res: Response
 	// 4. hash password
 	const hashedPassword = bcrypt.hashSync(password, 10);
 
+	// the sign in counter is the customer
+	const customer = await stripe.customers.create({
+		email
+	}, {
+		apiKey: process.env.STRIPE_SECRET_KEY
+	})
+
 	// after check the user is no exist, it will create the new user
 	const newUser = await UserModel.create({
 		email,
-		password: hashedPassword
+		password: hashedPassword,
+		stripeCustomerId: customer.id
 	});
 
 	// 5. add the token on the created user, and send back to client
@@ -67,7 +76,8 @@ export const signupController = async (req: Request, res: Response
 			token,
 			user: {
 				id: newUser._id,
-				email: newUser.email
+				email: newUser.email,
+				stripeCustomerId: customer.id
 			}
 		}
 	});

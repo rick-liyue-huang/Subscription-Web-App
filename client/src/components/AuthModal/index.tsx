@@ -58,7 +58,8 @@ const AuthModal: React.FC<AuthModalProps> = ({text, color, isSignupFlow}) =>  {
 			setState({
 				data: {
 					id: data.data.user.id,
-					email: data.data.user.email
+					email: data.data.user.email,
+					stripeCustomerId: data.data.user.stripeCustomerId
 				},
 				loading: false,
 				error: null

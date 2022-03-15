@@ -5,7 +5,8 @@ import axios from "axios";
 interface UserProps {
 	data: {
 		id: string;
-		email: string
+		email: string;
+		stripeCustomerId: string;
 	} | null;
 	error: string | null,
 	loading: boolean
@@ -35,7 +36,8 @@ const UserProvider = ({children}: any) => {
 			setUser({
 				data: {
 					id: data.data.user.id,
-					email: data.data.user.email
+					email: data.data.user.email,
+					stripeCustomerId: data.data.user.id
 				},
 				loading: false,
 				error: null

@@ -10,6 +10,7 @@ import cors from 'cors';
 import errorHandler from "./middlewares/errorHandler";
 import {logger} from "./middlewares/logEvents";
 import {corsOptionsDelegate} from "../config/corsConfig";
+import articleRouter from './routes/articles';
 
 // let server recognise .env variables
 dotenv.config();
@@ -54,6 +55,8 @@ mongoose.connect(process.env.MONGODB_URL as string)
 		app.use('/auth', authRouter);
 		// subscription router
 		app.use('/subscript', subsriptRouter);
+		// article route
+		app.use('/articles', articleRouter);
 
 		// through this middleware, we can send the error to front page
 		app.use(errorHandler);
